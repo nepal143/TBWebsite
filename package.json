@@ -6,6 +6,9 @@
     "mongoose": "^7.6.3"
   },
   "scripts": {
-    "start" : "nodemon src/app.js"
+    "start": "nodemon src/app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
