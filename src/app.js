@@ -13,10 +13,10 @@ app.use(express.static(path.join(__dirname, "/../public")));
 
 
 // db connection 
-const uri = "mongodb+srv://Ignite_n:Neke@007@cluster0.wnh37zr.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
-function connect(){ 
+const uri = "mongodb+srv://Ignite_n:I2SbetFH0PeusgdI@cluster0.wnh37zr.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
+function connect(){
     try{
-       mongoose.connect(uri) 
+       mongoose.connect(uri)  
        connectionStatus = true;
        console.log("success")
     }
