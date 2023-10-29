@@ -4,5 +4,8 @@
     "hbs": "^4.2.0",
     "mongodb": "^6.2.0",
     "mongoose": "^7.6.3"
+  },
+  "scripts": {
+    "start" : "nodemon src/app.js"
   }
 }
