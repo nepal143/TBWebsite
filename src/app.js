@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const hbs = require("hbs");
-
+const mongoose = require("mongoose") 
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -10,6 +10,22 @@ app.set("views", path.join(__dirname, "/../templates/views"));
 app.set("view engine", "hbs");
 hbs.registerPartials(path.join(__dirname, "/../templates/views/partials"));
 app.use(express.static(path.join(__dirname, "/../public")));
+
+
+// db connection 
+const uri = "mongodb+srv://Ignite_n:Neke@007@cluster0.wnh37zr.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp"
+function connect(){ 
+    try{
+       mongoose.connect(uri) 
+       connectionStatus = true;
+       console.log("success")
+    }
+    catch(err){
+        console.error(err)
+    }
+}
+
+connect()
 
 app.get("/", (req, res) => {
     res.render("index.hbs");
