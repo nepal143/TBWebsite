@@ -1,11 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Board</title>
+  <title>Event Page</title>
 </head>
 <body>
-    {{>Navbar}}
+  <h1>Event Page</h1>
+  
+  <div class="event-list">
+    {{#each events}}
+      <div class="event-card">
+        <h2>{{this.name}}</h2>
+        <p>Date: {{this.date}}</p>
+        <p>{{this.description}}</p>
+        <button class="delete-button" data-id="{{this._id}}">Delete</button>
+      </div>
+    {{/each}}
+  </div>
+
+  <form id="add-event-form" action="/events" method="POST">
+    <label for="name">Event Name</label>
+    <input type="text" name="name" required>
+    <label for="date">Event Date</label>
+    <input type="date" name="date" required>
+    <label for="description">Event Description</label>
+    <textarea name="description" required></textarea>
+    <button type="submit">Add Event</button>
+  </form>
+
+  <script src="/script.js"></script>
 </body>
 </html>
