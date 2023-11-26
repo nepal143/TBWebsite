@@ -1,7 +1,8 @@
 :root{
     --primary : rgb(0, 234, 255) ;
     --secondary : rgb(168, 245, 239); 
-    --textcolor : white;
+    --textcolor : white; 
+    --white : #F5F5F5 ;
 }
 *{
     margin: 0;
@@ -22,7 +23,8 @@ nav{
 .navList {
     display: flex;
     list-style: none;
-    border: 1px solid var(--primary);
+    border-top:1px solid var(--primary); 
+    border-bottom:1px solid var(--primary); 
     justify-content: center;
     align-items: center;
     padding: 0 30px;
@@ -72,11 +74,11 @@ nav{
     justify-content: space-evenly;
     align-items: center ;
     list-style: none;
-    background-color: white;
+    background-color: var(--white);
     width: calc( 90vw - 10px); 
     padding: 7px 5px ;
     border-radius: 6px;
-    box-shadow: 3px 3px 4px #05D9E8;
+    box-shadow: 3px 3px 4px var(--primary);
 }
 .navList-tab i{
     text-shadow: 2px 2px 5px #78787888;
