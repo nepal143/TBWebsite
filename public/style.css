@@ -21,6 +21,9 @@
 body{
     overflow-y: hidden;
     background-color: #000021;
+    background-image: url(Images/background.png);
+    background-size: cover;
+    background-repeat: repeat-y;
 }
 
 
@@ -127,7 +130,7 @@ nav{
     color: var(--textcolor);
     font-weight: 700;
     width: 100%;
-    transform: scaleY(1.2);
+    transform: scaleY(1.2); 
 }
 .TechBoard{
     font-size: 15vw;
@@ -149,10 +152,10 @@ nav{
 
 }
 .TB{
-    animation: tb 0.8s;
     margin: 10vw auto auto 30.5vw;
     width: 25vw;
     position: absolute;
+    animation: tb 0.8s;
 }
 
 @keyframes ring {
