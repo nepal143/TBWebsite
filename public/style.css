@@ -19,11 +19,12 @@
     /* font-family: Arial, Helvetica, sans-serif; */
 }
 body{
-    overflow-y: hidden;
+    overflow-x: hidden;
     background-color: #000021;
     background-image: url(Images/background.png);
-    background-size: cover;
-    background-repeat: repeat-y;
+    background-size:cover;
+    background-repeat: no-repeat;
+    /* min-height: 130vw; */
 }
 
 
@@ -115,7 +116,7 @@ nav{
 /* ------------hero section starts here ------------ */
 .hero{
     width: 90vw;
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     padding-top: 20vh;
@@ -129,15 +130,34 @@ nav{
     font-size: 5vw;
     color: var(--textcolor);
     font-weight: 700;
-    width: 100%;
+    width: 90vw;
     transform: scaleY(1.2); 
+}
+.weAreHider{
+    animation: Hider 1s  forwards;
+    width: 0vw;
+    overflow: hidden;
 }
 .TechBoard{
     font-size: 15vw;
     color: var(--textcolor);
     font-weight: 700;
-    width:100%;
+    width:90vw;
     transform: scaleY(1.2);
+}
+.TBhider{
+    animation: Hider 1s 1s forwards;
+
+    width: 0vw;
+    overflow: hidden;
+}
+@keyframes Hider {
+    0%{
+        width: 0px;
+    }
+    100%{
+        width: 90vw;
+    }
 }
 
 
@@ -146,17 +166,20 @@ nav{
 .Ring{
     margin: auto;
     width: 35vw;
+    scale: 0;
     position: absolute;
     margin-left: 25vw;
-    animation: ring 1s ;
+    animation: ring 1s 2s forwards;
 
 }
 .TB{
     margin: 10vw auto auto 30.5vw;
     width: 25vw;
     position: absolute;
-    animation: tb 0.8s;
+    animation: tb 0.8s 2s forwards;
+    scale: 0;
 }
+
 
 @keyframes ring {
     0%{
