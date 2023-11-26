@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Karantina";
+    src: url(fonts/Karantina-Bold.ttf) 
+}
+
 :root{
     --primary : rgb(0, 234, 255) ;
     --secondary : rgb(168, 245, 239); 
@@ -7,7 +12,7 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
 }
 body{
     overflow-y: hidden;
@@ -84,13 +89,6 @@ nav{
     text-shadow: 2px 2px 5px #78787888;
 }
 
-
-
-
-
-
-
-
 /* media querry  */
 @media screen and (max-width:500px) {
     .desktopNav{
@@ -99,4 +97,32 @@ nav{
     .TabNav{
         display: flex; 
     }
+}
+/* ----------nav bar ends here ---------- */
+
+
+
+
+
+/* ------------hero section starts here ------------ */
+.hero{
+    /* width: 100vw; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    padding-top: 10vh;
+    margin-left: 5vw;
+    font-family: "Karantina";
+    /* align-items: center; */
+}
+.weAre{
+    font-size: 5vw;
+    color: var(--textcolor);
+    font-weight: 700;
+}
+.TechBoard{
+    font-size: 10vw;
+    color: var(--textcolor);
+    font-weight: 700;
 }
