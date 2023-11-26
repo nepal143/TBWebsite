@@ -2,6 +2,10 @@
     font-family: "Karantina";
     src: url(fonts/Karantina-Bold.ttf) 
 }
+@font-face {
+    font-family: "Faro";
+    src: url(fonts/Farro-Bold.ttf) 
+}
 
 :root{
     --primary : rgb(0, 234, 255) ;
@@ -24,6 +28,7 @@ body{
 nav{
     position: fixed;
     width: 100%;
+    font-family: "Faro";
 }
 .navList {
     display: flex;
@@ -106,23 +111,68 @@ nav{
 
 /* ------------hero section starts here ------------ */
 .hero{
-    /* width: 100vw; */
+    width: 90vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    padding-top: 10vh;
-    margin-left: 5vw;
+    padding-top: 20vh;
+    margin: auto;
+
     font-family: "Karantina";
-    /* align-items: center; */
+    line-height: 1.5;
+    /* font-height: 1.5; */
 }
 .weAre{
     font-size: 5vw;
     color: var(--textcolor);
     font-weight: 700;
+    width: 100%;
+    transform: scaleY(1.2);
 }
 .TechBoard{
-    font-size: 10vw;
+    font-size: 15vw;
     color: var(--textcolor);
     font-weight: 700;
+    width:100%;
+    transform: scaleY(1.2);
 }
+
+
+
+/* techboard ring animation starts here */
+.Ring{
+    margin: auto;
+    width: 35vw;
+    position: absolute;
+    margin-left: 25vw;
+    animation: ring 1s ;
+
+}
+.TB{
+    animation: tb 0.8s;
+    margin: 10vw auto auto 30.5vw;
+    width: 25vw;
+    position: absolute;
+}
+
+@keyframes ring {
+    0%{
+        transform: rotate(0deg);
+        scale :3;
+    }
+    100%{
+        transform: rotate(360deg);
+        scale:1;
+    }
+    
+}
+@keyframes tb {
+    0%{
+        scale:0;
+    }
+    100%{
+        scale:1;
+    }
+}
+
+/* ring animation ends here  */
