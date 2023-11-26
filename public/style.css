@@ -19,7 +19,7 @@ nav{
     position: fixed;
     width: 100%;
 }
-.navList{
+.navList {
     display: flex;
     list-style: none;
     border: 1px solid var(--primary);
@@ -29,6 +29,7 @@ nav{
     font-size: 2vh;
     font-weight: 700;
 }
+
 
 .navLink{
     margin:auto  2vw;
@@ -58,13 +59,42 @@ nav{
     border: var(--primary) 1.5px solid;
 }
 
+.TabNav{
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+.navList-tab{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center ;
+    list-style: none;
+    background-color: white;
+    width: calc( 90vw - 10px); 
+    padding: 7px 5px ;
+    border-radius: 6px;
+    box-shadow: 3px 3px 4px #05D9E8;
+}
+.navList-tab i{
+    text-shadow: 2px 2px 5px #78787888;
+}
+
+
+
+
+
+
+
 
 /* media querry  */
 @media screen and (max-width:500px) {
     .desktopNav{
         display: none;
     }
-    .tabNav{
-        display: unset; 
+    .TabNav{
+        display: flex; 
     }
 }
