@@ -18,13 +18,17 @@
     padding: 0;
     /* font-family: Arial, Helvetica, sans-serif; */
 }
+::-webkit-scrollbar {
+    width: 0em;
+    height: 0em
+}
 body{
     overflow-x: hidden;
     background-color: #000021;
     background-image: url(Images/background.png);
     background-size:cover;
-    background-repeat: no-repeat;
-    /* min-height: 130vw; */
+    background-repeat: repeat-y;
+    min-height: 130vw;
 }
 
 
@@ -112,7 +116,6 @@ nav{
 
 
 
-
 /* ------------hero section starts here ------------ */
 .hero{
     width: 90vw;
@@ -134,7 +137,7 @@ nav{
     transform: scaleY(1.2); 
 }
 .weAreHider{
-    animation: Hider 1s  forwards;
+    animation: Hider 1s ease-in-out forwards;
     width: 0vw;
     overflow: hidden;
 }
@@ -146,7 +149,7 @@ nav{
     transform: scaleY(1.2);
 }
 .TBhider{
-    animation: Hider 1s 1s forwards;
+    animation: Hider 1s 1s ease-in-out forwards;
 
     width: 0vw;
     overflow: hidden;
@@ -169,14 +172,14 @@ nav{
     scale: 0;
     position: absolute;
     margin-left: 25vw;
-    animation: ring 1s 2s forwards;
+    animation: ring 2s 2s ease-in-out forwards;
 
 }
 .TB{
     margin: 10vw auto auto 30.5vw;
     width: 25vw;
     position: absolute;
-    animation: tb 0.8s 2s forwards;
+    animation: tb 0.8s 2s ease-in-out forwards;
     scale: 0;
 }
 
@@ -184,10 +187,10 @@ nav{
 @keyframes ring {
     0%{
         transform: rotate(0deg);
-        scale :3;
+        scale :4;
     }
     100%{
-        transform: rotate(360deg);
+        transform: rotate(1080deg);
         scale:1;
     }
     
@@ -200,5 +203,6 @@ nav{
         scale:1;
     }
 }
+​
 
 /* ring animation ends here  */
