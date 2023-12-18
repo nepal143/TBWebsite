@@ -26,7 +26,7 @@ body{
     overflow-x: hidden;
     background-color: #000021;
     background-image: url(Images/background.png);
-    background-size:cover;
+    background-size:contain;
     background-repeat: repeat-y;
     /* background-repeat: no-repeat; */
     /* min-height: 500vw;    */
@@ -106,10 +106,10 @@ nav{
     list-style: none;
     background-color: var(--white);
     width: calc( 90vw - 10px); 
-    padding: 7px 5px ;
+    padding: 15px 5px ;
     border-radius: 6px;
     box-shadow: 3px 3px 4px var(--primary);
-    padding: 10px auto;
+
 }
 .navList-tab i{
     text-shadow: 2px 2px 5px #78787888;
@@ -119,8 +119,9 @@ nav{
 }
 .navLink-tab{
     transition: 0.5s;
-    font-size: 1.3em;
+    font-size: 1.5em;
 }
+
 
 .active{
     border-radius: 50%;
@@ -136,6 +137,7 @@ nav{
     }
     .TabNav{
         display: flex; 
+        position: fixed;
     }
     .tbLogo{
         display: unset;
