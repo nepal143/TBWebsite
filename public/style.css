@@ -28,7 +28,8 @@ body{
     background-image: url(Images/background.png);
     background-size:cover;
     background-repeat: repeat-y;
-    min-height: 130vw;
+    /* background-repeat: no-repeat; */
+    /* min-height: 500vw;    */
 }
 
 
@@ -39,6 +40,14 @@ nav{
     font-family: "Faro";
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
+    z-index: 1;
+}
+.tbLogo{
+    display: none;
+    width: 15vw;
+    position: fixed;
+    top: 20px;
+    left: 20px;
     z-index: 1;
 }
 .navList {
@@ -100,9 +109,24 @@ nav{
     padding: 7px 5px ;
     border-radius: 6px;
     box-shadow: 3px 3px 4px var(--primary);
+    padding: 10px auto;
 }
 .navList-tab i{
     text-shadow: 2px 2px 5px #78787888;
+    border-radius: 50px;
+    padding: 7px 9px;
+    transition: 0.5s;
+}
+.navLink-tab{
+    transition: 0.5s;
+    font-size: 1.3em;
+}
+
+.active{
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.45);
+    transform: translateY(-20px);
 }
 
 /* media querry  */
@@ -112,6 +136,9 @@ nav{
     }
     .TabNav{
         display: flex; 
+    }
+    .tbLogo{
+        display: unset;
     }
 }
 /* ----------nav bar ends here ---------- */
@@ -165,6 +192,17 @@ nav{
         width: 90vw;
     }
 }
+@media screen and (max-width:800px) {
+    .weAre{
+        font-size: 10vw;
+        font-weight: 300;
+    }
+    .TechBoard{
+        font-size: 20vw;
+        line-height: 1;
+        margin-top: 10vw;
+    }
+}
 
 
 
@@ -192,6 +230,7 @@ nav{
     display: none; 
     animation: none;
     scale: 1;
+    opacity: 0.5;
 }
 .TBm {
     margin: -15vw auto auto 42vw;
