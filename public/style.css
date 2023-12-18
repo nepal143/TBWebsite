@@ -26,7 +26,7 @@ body{
     overflow-x: hidden;
     background-color: #000021;
     background-image: url(Images/background.png);
-    background-size:contain;
+    background-size:cover;
     background-repeat: repeat-y;
     /* background-repeat: no-repeat; */
     /* min-height: 500vw;    */
