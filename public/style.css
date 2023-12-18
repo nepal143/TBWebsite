@@ -22,7 +22,7 @@
     width: 0em;
     height: 0em
 }
-body{
+body{ 
     overflow-x: hidden;
     background-color: #000021;
     background-image: url(Images/background.png);
@@ -37,6 +37,9 @@ nav{
     position: fixed;
     width: 100%;
     font-family: "Faro";
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 1;
 }
 .navList {
     display: flex;
@@ -103,7 +106,7 @@ nav{
 }
 
 /* media querry  */
-@media screen and (max-width:500px) {
+@media screen and (max-width:800px) {
     .desktopNav{
         display: none;
     }
@@ -166,31 +169,63 @@ nav{
 
 
 /* techboard ring animation starts here */
-.Ring{
+.Ring , .Ringm , .Ringm1{
     margin: auto;
     width: 35vw;
     scale: 0;
     position: absolute;
     margin-left: 25vw;
-    animation: ring 2s 2s ease-in-out forwards;
+    animation: ring 1s 2s ease-in-out forwards;
 
 }
-.TB{
+.TB , .TBm , .TBm1{
     margin: 10vw auto auto 30.5vw;
     width: 25vw;
     position: absolute;
     animation: tb 0.8s 2s ease-in-out forwards;
     scale: 0;
+
 }
 
-
+/* mobile view classes starts here  */
+.TBm , .Ringm , .TBm1 , .Ringm1{
+    display: none; 
+    animation: none;
+    scale: 1;
+}
+.TBm {
+    margin: -15vw auto auto 42vw;
+    width: 110vw;
+}
+.Ringm{
+    margin: -46vw auto auto 34vw;
+    width: 130vw;
+}
+.TBm1 {
+    margin: 75vw auto auto -65vw;
+    width: 110vw;
+}
+.Ringm1{
+    margin: 42vw auto auto -74vw;
+    width: 130vw;
+}
+@media screen and (max-width:800px) {
+    .TB , .Ring{
+        display : none ;
+    }
+    .TBm , .Ringm , .TBm1 , .Ringm1{
+        display: block; 
+    }
+    
+}
+/* mobile view classes ends here   */
 @keyframes ring {
     0%{
         transform: rotate(0deg);
         scale :4;
     }
     100%{
-        transform: rotate(1080deg);
+        transform: rotate(720deg);
         scale:1;
     }
     
@@ -204,5 +239,7 @@ nav{
     }
 }
 ​
+
+
 
 /* ring animation ends here  */
