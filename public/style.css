@@ -122,6 +122,7 @@ nav{
 .navLink-tab{
     transition: 0.5s;
     font-size: 1.5em;
+    user-select: none;
 }
 
 
