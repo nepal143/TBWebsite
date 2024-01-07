@@ -6,7 +6,9 @@
     font-family: "Faro";
     src: url(fonts/Farro-Bold.ttf) 
 }
-
+html {
+    scroll-behavior: smooth;
+  }
 :root{
     --primary : rgb(0, 234, 255) ;
     --secondary : rgb(168, 245, 239); 
@@ -16,7 +18,7 @@
 *{
     margin: 0;
     padding: 0;
-    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family:"Karantina";
 }
 ::-webkit-scrollbar {
     width: 0em;
@@ -27,7 +29,7 @@ body{
     overflow-x: hidden;
     background-color: #000021;
     background-image: url(Images/background.png);
-    background-size:contain;
+    background-size:cover;
     background-repeat: repeat-y;
 
     /* background-repeat: no-repeat; */
@@ -293,8 +295,75 @@ nav{
         scale:1;
     }
 }
-​
 
 
+/* about section starts here  */
 
-/* ring animation ends here  */
+.rectangle-left , .rectangle-right{
+    border: 1.5px  white solid;
+    height: 15vh;
+    width: 20vw;
+    /* position: absolute; */
+    border-left: none;
+    margin: 30px 0px;
+}
+.rectangle-stroke{
+    width: 25vw;
+    transform: translate(-30% ,20%);
+    height: 15vh;
+    background-color: var(--primary);
+
+}
+.about-container{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto;
+}
+.about-heading{
+    width: 50%;
+    font-size: 15vw;
+    letter-spacing:31px;
+    text-align: center;
+
+}
+.vertical-line{
+    width: 1.5px ;
+    height:300px ;
+    margin: 10px 20px;
+    background-color: rgb(178, 178, 178);
+}
+.about-contents{
+    width: 35%;
+    font-size: 2vw;
+    color :  rgb(219, 219, 219);
+}
+.rectangle-right{
+    float: right;
+    border-left: 1.5px solid white;
+    border-right: none;
+}
+.stroke-right{
+    transform: translate(+10% ,20%);
+}
+
+@media screen and (max-width:800px) {
+    .about-container{
+        flex-direction: column;
+    }
+    .about-heading{
+        display: flex;
+        letter-spacing: 1px;
+        width: 50%;
+    }
+    .vertical-line{
+        display: none;
+    }
+    .about-contents{
+        font-size: 2em;
+        width: 80%;
+        margin: auto;
+    }
+    
+}
