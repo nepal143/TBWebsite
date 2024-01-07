@@ -7,6 +7,7 @@
     src: url(fonts/Farro-Bold.ttf) 
 }
 html {
+    overflow-x: hidden;
     scroll-behavior: smooth;
   }
 :root{
@@ -26,7 +27,6 @@ html {
 }
 body{ 
     width: 100vw;
-    overflow-x: hidden;
     background-color: #000021;
     background-image: url(Images/background.png);
     background-size:cover;
@@ -343,9 +343,12 @@ nav{
     float: right;
     border-left: 1.5px solid white;
     border-right: none;
+    width: 25vw;
+    padding-left: 30px ;
 }
 .stroke-right{
-    transform: translate(+10% ,20%);
+    transform: translate(0px ,20%);
+
 }
 
 @media screen and (max-width:800px) {
