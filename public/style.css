@@ -287,6 +287,15 @@ nav{
     }
     
 }
+@keyframes ring-infinite {
+    0%{
+        transform: rotate(0turn);
+    }
+    100%{
+        transform: rotate(1turn);
+    }
+    
+}
 @keyframes tb {
     0%{
         scale:0;
@@ -303,7 +312,6 @@ nav{
     border: 1.5px  white solid;
     height: 15vh;
     width: 20vw;
-    /* position: absolute; */
     border-left: none;
     margin: 30px 0px;
 }
@@ -368,5 +376,33 @@ nav{
         width: 80%;
         margin: auto;
     }
+}
+
+/* about section ends here */
+
+/* timeline section starts here  */
+
+.timeline{
+    margin-top: 35vh;
+}
+.timeline-heading{
+    display: flex;
+    align-items: center;
+}
+.timeline-head{
+    color: white;
+    font-size: 10vw;
+    letter-spacing: 10px;
+    margin-left: 5vw;
+}
+
+.scroll-image{
+    display: flex;
+    justify-content: center;
+    align-items: center
+    ;
+}
+.vertical-line{
+    width: 2px;
     
 }
