@@ -45,6 +45,7 @@ nav{
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
     z-index: 1;
+    background-color: #000021a7;
 }
 .tbLogo{
     display: none;
@@ -404,5 +405,7 @@ nav{
 }
 .vertical-line{
     width: 2px;
+    height: 500px;
+    margin: auto;
     
 }
