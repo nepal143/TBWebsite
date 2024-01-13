@@ -1,11 +1,36 @@
+<!-- admin.hbs -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Board</title>
+    <title>Admin Page</title>
 </head>
+
 <body>
-    {{>Navbar}}
+    <h1>Admin Page</h1>
+
+    <h2> <b>EVENTS</b></h2>
+    <ul>
+        {{#each events}}
+        <li>
+            {{eventName}} - {{AboutEvent}}
+            <a href="edit/confirm/{{_id}}?adminKey={{admin_key}}">Edit</a>
+            <a href="#" onclick="confirmDelete('{{_id}}', '{{admin_key}}')">Delete</a>
+        </li>
+        {{/each}}
+    </ul> 
+
+    <script>
+        function confirmDelete(eventId) {
+            var shouldDelete = confirm("Are you sure you want to delete this event?");
+            if (shouldDelete) {
+                // Redirect to the server endpoint for deleting the event
+            window.location.href = 'delete/' + _Id + '?adminKey=' + adminKey;
+            }
+        }
+    </script>
 </body>
+
 </html>

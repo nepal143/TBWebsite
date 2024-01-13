@@ -3,8 +3,17 @@
 {{>header}}
 <body>
     {{>Navbar}}
+    <div class="events-page">
+    <div class="event-heading">
+     <div class="rectangle-left rect-left" style="">
+        <div class="rectangle-stroke"> </div> 
+    </div>
 
-    
+       <span> EVENTS</span>
+
+     <div class="rectangle-right rect-right" style="">
+        <div class="rectangle-stroke stroke-right"> </div>
+    </div></div>
     <div class="event-container">
     {{#each events}}
         <div class="event-card">
@@ -13,5 +22,6 @@
         </div>
     {{/each}}   
     </div> 
+    </div>
 </body>
 </html>

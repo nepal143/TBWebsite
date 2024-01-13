@@ -411,8 +411,23 @@ nav{
 }
 
 
-/* temporary */
-
+/* ---------------------------------- evnets apge starts here --------------------- */
+.events-page{
+    padding-top: 100px;
+}
+.event-heading{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.event-heading span{
+    font-size: 13vw;
+    margin: auto 15vw;
+    letter-spacing: 10px;
+}
+.rect-right{
+    /* margin-left: 20vw; */
+}
 .event-container{
     padding-top:  100px;
     color: white;
@@ -430,3 +445,14 @@ nav{
     flex-direction: column
     ;
 }
+.rect-left{
+    margin-top: 0;
+}
+
+@media (max-width:800px) {
+    .rect-right .rect-left{
+        width: 5vh;
+    }
+}
+
+/*---------------------------------- events page ends here -------------------------------- */
