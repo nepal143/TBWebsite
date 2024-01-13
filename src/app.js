@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 require('dotenv').config();
 const hbs = require("hbs");
+const multer = require('multer');
 const mongoose = require("mongoose") 
 const port = process.env.PORT || 4000; 
 const Events = require('./models/Events'); // Adjust the path accordingly
@@ -30,7 +31,15 @@ try{
 } catch (error) { 
   console.log(error)
 }
-
+// multer storage function to store images 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/'); 
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname); 
+  }
+});
 
 
 // middlewares 
@@ -127,7 +136,7 @@ app.get('/edit/confirm/:eventId',async (req, res) => {
 });
 
 
-app.get('/edit/confirmed/:eventId', async (req, res) => {
+app.get('/edit/confirmed/:eventId',  upload.single('eventImage') ,async (req, res) => {
   const eventId = req.params.eventId;
   const adminKey = req.query.adminKey;
 
@@ -150,13 +159,12 @@ app.get('/edit/confirmed/:eventId', async (req, res) => {
 });
 
 
-// app.js
+
 app.post('/edit/confirmed/:eventId', async (req, res) => {
   const eventId = req.params.eventId;
   const adminKey = req.query.adminKey;
 
   try {
-    // Fetch the event data by eventId
     const eventToUpdate = await Events.findById(eventId);
 
     if (!eventToUpdate) {
@@ -164,16 +172,11 @@ app.post('/edit/confirmed/:eventId', async (req, res) => {
       res.status(404).send('Event not found');
       return;
     }
-
-    // Update the event data based on the form submission
     eventToUpdate.eventName = req.body.eventName;
     eventToUpdate.AboutEvent = req.body.aboutEvent;
-    // Update other event details as needed
 
-    // Save the updated event data
     await eventToUpdate.save();
 
-    // Redirect to the admin page after edit confirmation
     res.render("/admin" , {adminKey : admin_key})
   } catch (error) {
     console.error('Error updating event data:', error);

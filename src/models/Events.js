@@ -1,19 +1,22 @@
-const mongoose = require('mongoose');
+// models/Events.js
 
-const eventSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const eventsSchema = new Schema({
   eventName: {
     type: String,
-    required: true,
+    required: true
   },
-  eventDiscription: {
-    type: Date,
-    required: false,
-  },
-  AboutEvent: {
+  aboutEvent: {
     type: String,
-    required: true, 
+    required: true
   },
-  // Add more fields as needed 
+  imagePath: {
+    type: String // Store the path of the uploaded image
+  }
 });
 
-module.exports = mongoose.model('Events', eventSchema);    
+const Events = mongoose.model('Events', eventsSchema);
+
+module.exports = Events;
