@@ -409,3 +409,24 @@ nav{
     margin: auto;
     
 }
+
+
+/* temporary */
+
+.event-container{
+    padding-top:  100px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction:  column;
+}
+.event-card{
+    width: 70vw;
+    height: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column
+    ;
+}

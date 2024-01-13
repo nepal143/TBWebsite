@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>header}}
+<body>
+    {{>Navbar}}
+
+    
+    <div class="event-container">
+    {{#each events}}
+        <div class="event-card">
+            <h2>{{eventName}}</h2>
+            <p> {{AboutEvent}}</p>
+        </div>
+    {{/each}}   
+    </div> 
+</body>
+</html>
