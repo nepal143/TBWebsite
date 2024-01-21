@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <h1>Add New Event</h1>
+    <form action="/add?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" required>
+        <label for="aboutEvent">About Event:</label>
+        <textarea id="aboutEvent" name="aboutEvent" required></textarea>
+
+        <label for="eventImage">Event Image:</label>
+        <input type="file" id="eventImage" name="eventImage" required>
+
+        <button type="submit">Add Event</button>
+    </form>
+</body>
+</html>

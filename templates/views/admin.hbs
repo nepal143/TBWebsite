@@ -1,4 +1,3 @@
-<!-- admin.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,16 +20,16 @@
         </li>
         {{/each}}
     </ul> 
+     <a href="/add">Add New Event</a>
 
     <script>
-        function confirmDelete(eventId) {
-            var shouldDelete = confirm("Are you sure you want to delete this event?");
-            if (shouldDelete) {
-                // Redirect to the server endpoint for deleting the event
-            window.location.href = 'delete/' + _Id + '?adminKey=' + adminKey;
-            }
+   function confirmDelete(eventId, adminKey) {
+        var shouldDelete = confirm("Are you sure you want to delete this event?");
+        if (shouldDelete) {
+            window.location.href = '/delete/:' + eventId + '?adminKey=' + adminKey;
         }
+    }
     </script>
-</body>
+</body> 
 
 </html>

@@ -6,11 +6,11 @@ const Schema = mongoose.Schema;
 const eventsSchema = new Schema({
   eventName: {
     type: String,
-    required: true
+    required: false
   },
   aboutEvent: {
     type: String,
-    required: true
+    required: false
   },
   imagePath: {
     type: String // Store the path of the uploaded image
