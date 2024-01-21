@@ -1,11 +1,11 @@
 const express = require("express");
 const path = require("path");
-require("dotenv").config();
+require('dotenv').config();
 const hbs = require("hbs");
-const multer = require("multer");
+const multer = require('multer');
 const mongoose = require("mongoose");
 const port = process.env.PORT || 4000;
-const Events = require("./models/Events"); // Adjust the path accordingly
+const Events = require('./models/Events'); // Adjust the path accordingly
 const app = express();
 const admin_key = process.env.ADMIN_KEY;
 const moongose_uri = process.env.MONGOOSE_URI || "mongodb://127.0.0.1:27017/yourdatabase"; // Provide a default value
@@ -29,42 +29,50 @@ async function connection() {
   }
 }
 
-try{
-  connection() ;
-} catch (error) { 
-  console.log(error)
-}
+// Call the connection function directly, without a try-catch block
+connection();
+
+// Multer configuration for file storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads/events'); 
+    cb(null, 'public/uploads/events');
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+    cb(null, Date.now() + '-' + file.originalname);
+  }
 });
 
-const upload = multer({ storage: storage }); // Use storage option instead of dest
+const upload = multer({ storage: storage });
 
 // Middlewares
+// Middleware to authenticate admin for specific routes
 const authenticateAdmin = (req, res, next) => {
   const adminKey = req.query.adminKey;
-  if (adminKey && adminKey === process.env.ADMIN_KEY) {
-    next();
-  } else {
 
-    res.status(401).send('Unauthorized access');
+  // Specify the routes that require admin authentication
+  const adminRoutes = [ '/delete/:eventId', '/edit/confirm/:eventId', '/edit/confirmed/:eventId',];
+
+  if (adminRoutes.includes(req.path)) {
+    // If the route requires admin authentication
+    if (adminKey && adminKey === process.env.ADMIN_KEY) {
+      // Allow access for authenticated admin
+      next();
+    } else {
+      // Send Unauthorized response for unauthorized access
+      res.status(401).send('Unauthorized access');
+    }
+  } else {
+    // For other routes, proceed without admin authentication
+    next();
   }
 };
 
-app.post('/upload', upload.single('file'), (req, res) => {
-  const { filename, originalname, size } = req.file;
+// Apply the middleware globally
+app.use(authenticateAdmin);
 
-
-
- 
-app.use(express.json());  
-app.use(express.urlencoded({ extended: true })); 
-
+// Body parsing middlewares should be before defining routes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.get("/", (req, res) => {
@@ -95,14 +103,11 @@ app.get("/admin", async (req, res) => {
 
 app.get('/delete/:eventId', async (req, res) => {
   const eventId = req.params.eventId.replace(':', ''); // Remove the colon
-  const adminKey = req.query.adminKey;
-
-  console.log('Received eventId:', eventId);
 
   try {
-      await Events.findByIdAndDelete(eventId);
-      console.log("Deleted successfully")
-      res.redirect('/admin');
+    await Events.findByIdAndDelete(eventId);
+    console.log("Deleted successfully")
+    res.redirect('/admin');
 
   } catch (error) {
     console.error('Error deleting event:', error);
@@ -110,9 +115,7 @@ app.get('/delete/:eventId', async (req, res) => {
   }
 });
 
-
-// app.js
-app.get('/edit/confirm/:eventId',async (req, res) => {
+app.get('/edit/confirm/:eventId', async (req, res) => {
   const eventId = req.params.eventId;
   const adminKey = req.query.adminKey;
   try {
@@ -128,29 +131,23 @@ app.get('/edit/confirm/:eventId',async (req, res) => {
   }
 });
 
-app.get(
-  "/edit/confirmed/:eventId",
-  upload.single("eventImage"),
-  async (req, res) => {
-    const eventId = req.params.eventId;
-    const adminKey = req.query.adminKey;
-    try {
-      const eventToUpdate = await Events.findById(eventId);
-      if (!eventToUpdate) {
-        res.status(404).send("Event not found");
-        return;
-      }
-      res.render("edit", { eventToUpdate, adminKey });
-    } catch (error) {
-      console.error("Error fetching event data for edit confirmation:", error);
-      res.status(500).send("Internal Server Error");
+app.get("/edit/confirmed/:eventId", upload.single("eventImage"), async (req, res) => {
+  const eventId = req.params.eventId;
+  const adminKey = req.query.adminKey;
+  try {
+    const eventToUpdate = await Events.findById(eventId);
+    if (!eventToUpdate) {
+      res.status(404).send("Event not found");
+      return;
     }
+    res.render("edit", { eventToUpdate, adminKey });
+  } catch (error) {
+    console.error("Error fetching event data for edit confirmation:", error);
+    res.status(500).send("Internal Server Error");
   }
-);
+});
 
-
-
-app.post('/edit/confirmed/:eventId', async (req, res) => {
+app.post('/edit/confirmed/:eventId', upload.single('eventImage'), async (req, res) => {
   const eventId = req.params.eventId;
   const adminKey = req.query.adminKey;
   try {
@@ -162,11 +159,16 @@ app.post('/edit/confirmed/:eventId', async (req, res) => {
 
     // Update the event data based on the form submission
     eventToUpdate.eventName = req.body.eventName;
-    eventToUpdate.AboutEvent = req.body.aboutEvent;
+    eventToUpdate.aboutEvent = req.body.aboutEvent;
+
+    // Check if a new file was uploaded
+    if (req.file) {
+      eventToUpdate.imagePath = req.file.path;
+    }
 
     await eventToUpdate.save();
 
-    res.render("/admin" , {adminKey : admin_key})
+    res.redirect("/admin");
   } catch (error) {
     console.error("Error updating event data:", error);
     res.status(500).send("Internal Server Error");
@@ -180,6 +182,7 @@ app.get('/add', (req, res) => {
   // Render the page for adding a new event
   res.render('addEvent', { adminKey });
 });
+
 app.post('/add', upload.single('eventImage'), async (req, res) => {
   const adminKey = req.query.adminKey;
 
@@ -209,7 +212,7 @@ app.post('/add', upload.single('eventImage'), async (req, res) => {
     console.error('Error adding new event:', error);
     res.status(500).send('Internal Server Error');
   }
-}); 
+});
 
 app.listen(port, () => {
   console.log(`The server is running on port ${port}`);
