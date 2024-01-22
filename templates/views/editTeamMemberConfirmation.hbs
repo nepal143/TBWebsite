@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Team Member Confirmation</title>
+</head>
+
+<body>
+    <h1>Edit Team Member Confirmation</h1>
+    <form action="/editTeamMember/confirmed/{{teamMemberToUpdate._id}}?adminKey={{adminKey}}" method="get">
+        <p>Are you sure you want to edit this team member?</p>
+        <button type="submit">Confirm Edit</button>
+    </form>
+</body>
+
+</html>

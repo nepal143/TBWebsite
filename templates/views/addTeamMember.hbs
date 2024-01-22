@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Team Member</title>
+</head>
+
+<body>
+    <h1>Add New Team Member</h1>
+    <form action="/addTeamMember?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" required>
+
+        <label for="githubLink">GitHub Link:</label>
+        <input type="text" id="githubLink" name="githubLink">
+
+        <label for="linkedinLink">LinkedIn Link:</label>
+        <input type="text" id="linkedinLink" name="linkedinLink">
+
+        <label for="instaLink">Instagram Link:</label>
+        <input type="text" id="instaLink" name="instaLink">
+
+        <label for="facebookLink">Facebook Link:</label>
+        <input type="text" id="facebookLink" name="facebookLink">
+
+        <label for="teamMemberImage">Team Member Image:</label>
+        <input type="file" id="teamMemberImage" name="teamMemberImage" required>
+
+        <button type="submit">Add Team Member</button>
+    </form>
+</body>
+
+</html>

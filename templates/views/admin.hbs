@@ -10,26 +10,47 @@
 <body>
     <h1>Admin Page</h1>
 
-    <h2> <b>EVENTS</b></h2>
+    <h2><b>EVENTS</b></h2>
     <ul>
         {{#each events}}
         <li>
             {{eventName}} - {{AboutEvent}}
             <a href="edit/confirm/{{_id}}?adminKey={{admin_key}}">Edit</a>
-            <a href="#" onclick="confirmDelete('{{_id}}', '{{admin_key}}')">Delete</a>
+            <a href="#" onclick="confirmDeleteEvent('{{_id}}', '{{admin_key}}')">Delete</a>
         </li>
         {{/each}}
-    </ul> 
-     <a href="/add">Add New Event</a>
+    </ul>
+
+    <a href="/add">Add New Event</a>
+
+    <h2><b>TEAM MEMBERS</b></h2>
+    <ul>
+        {{#each teamMembers}}
+        <li>
+            {{name}} - {{position}}
+            <a href="editTeamMember/confirm/{{_id}}?adminKey={{admin_key}}">Edit</a>
+            <a href="#" onclick="confirmDeleteTeamMember('{{_id}}', '{{admin_key}}')">Delete</a>
+        </li>
+        {{/each}}
+    </ul>
+
+    <a href="/addTeamMember">Add New Team Member</a>
 
     <script>
-   function confirmDelete(eventId, adminKey) {
-        var shouldDelete = confirm("Are you sure you want to delete this event?");
-        if (shouldDelete) {
-            window.location.href = '/delete/:' + eventId + '?adminKey=' + adminKey;
+        function confirmDeleteEvent(eventId, adminKey) {
+            var shouldDelete = confirm("Are you sure you want to delete this event?");
+            if (shouldDelete) {
+                window.location.href = '/delete/:' + eventId + '?adminKey=' + adminKey;
+            }
         }
-    }
+
+        function confirmDeleteTeamMember(teamMemberId, adminKey) {
+            var shouldDelete = confirm("Are you sure you want to delete this team member?");
+            if (shouldDelete) {
+                window.location.href = '/deleteTeamMember/:' + teamMemberId + '?adminKey=' + adminKey;
+            }
+        }
     </script>
-</body> 
+</body>
 
 </html>

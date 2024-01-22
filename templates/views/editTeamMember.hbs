@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Team Member</title>
+</head>
+
+<body>
+    <h1>Edit Team Member</h1>
+    <form action="/editTeamMember/confirmed/{{teamMemberToUpdate._id}}?adminKey={{adminKey}}" method="post"
+        enctype="multipart/form-data">
+        <!-- Existing form fields for editing team member details -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{teamMemberToUpdate.name}}" required>
+
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" value="{{teamMemberToUpdate.position}}" required>
+
+        <label for="githubLink">GitHub Link:</label>
+        <input type="text" id="githubLink" name="githubLink" value="{{teamMemberToUpdate.githubLink}}">
+
+        <label for="linkedinLink">LinkedIn Link:</label>
+        <input type="text" id="linkedinLink" name="linkedinLink" value="{{teamMemberToUpdate.linkedinLink}}">
+
+        <label for="instaLink">Instagram Link:</label>
+        <input type="text" id="instaLink" name="instaLink" value="{{teamMemberToUpdate.instaLink}}">
+
+        <label for="facebookLink">Facebook Link:</label>
+        <input type="text" id="facebookLink" name="facebookLink" value="{{teamMemberToUpdate.facebookLink}}">
+
+        <label for="teamMemberImage">Team Member Image:</label>
+        <input type="file" id="teamMemberImage" name="teamMemberImage">
+
+        <button type="submit">Confirm Edit</button>
+    </form>
+</body>
+
+</html>
