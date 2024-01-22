@@ -5,35 +5,31 @@ const hbs = require("hbs");
 const multer = require('multer');
 const mongoose = require("mongoose");
 const port = process.env.PORT || 4000;
-const Events = require('./models/Events'); // Adjust the path accordingly
+const Events = require('./models/Events'); 
 const TeamMember = require('./models/TeamMember');
 const app = express();
 const admin_key = process.env.ADMIN_KEY;
-const moongose_uri = process.env.MONGOOSE_URI || "mongodb://127.0.0.1:27017/yourdatabase"; // Provide a default value
+const moongose_uri = process.env.MONGOOSE_URI || "mongodb://127.0.0.1:27017/yourdatabase";
 
 app.set("views", path.join(__dirname, "../templates/views"));
 app.set("view engine", "hbs");
 hbs.registerPartials(path.join(__dirname, "../templates/partials"));
 app.use(express.static(path.join(__dirname, "../public")));
 
-// db connection
+
 const uri = moongose_uri;
 
-// Wrap the connection function call in a try-catch block
 async function connection() {
   try {
     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("connected successfully");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
-    throw error; // Rethrow the error to ensure it's caught by the outer try-catch block
+    throw error; 
   }
 }
+connection(); 
 
-// Call the connection function directly, without a try-catch block
-connection();
-
-// Multer configuration for file storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/uploads/events');
@@ -110,11 +106,9 @@ const uploadTeamMember = multer({ storage: storageTeam });
 // app.use(authenticateAdminForTeamMember);
 
 
-// Body parsing middlewares should be before defining routes
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Routes
 app.get("/", (req, res) => {
   res.render("index.hbs");
 });
@@ -143,7 +137,7 @@ app.get("/admin", async (req, res) => {
 
 
 app.get('/delete/:eventId', async (req, res) => {
-  const eventId = req.params.eventId.replace(':', ''); // Remove the colon
+  const eventId = req.params.eventId.replace(':', ''); 
 
   try {
     await Events.findByIdAndDelete(eventId);
@@ -198,11 +192,9 @@ app.post('/edit/confirmed/:eventId', upload.single('eventImage'), async (req, re
       return;
     }
 
-    // Update the event data based on the form submission
     eventToUpdate.eventName = req.body.eventName;
     eventToUpdate.aboutEvent = req.body.aboutEvent;
 
-    // Check if a new file was uploaded
     if (req.file) {
       eventToUpdate.imagePath = req.file.path;
     }
@@ -220,7 +212,6 @@ app.post('/edit/confirmed/:eventId', upload.single('eventImage'), async (req, re
 app.get('/add', (req, res) => {
   const adminKey = req.query.adminKey;
 
-  // Render the page for adding a new event
   res.render('addEvent', { adminKey });
 });
 
@@ -228,10 +219,7 @@ app.post('/add', upload.single('eventImage'), async (req, res) => {
   const adminKey = req.query.adminKey;
 
   try {
-    // Extract form data from req.body
     const { eventName, aboutEvent } = req.body;
-
-    // Check if a file was uploaded
     let imagePath;
     if (req.file) {
       imagePath = req.file.path;
@@ -269,16 +257,11 @@ app.post('/addTeamMember', uploadTeamMember.single('teamMemberImage'), async (re
   const adminKey = req.query.adminKey;
 
   try {
-    // Extract form data from req.body
     const { name, position, githubLink, linkedinLink, instaLink, facebookLink } = req.body;
-
-    // Check if a file was uploaded
     let imagePath;
     if (req.file) {
       imagePath = req.file.path;
     }
-
-    // Create a new TeamMember document with the extracted data
     const newTeamMember = new TeamMember({
       name: name,
       position: position,
@@ -286,13 +269,10 @@ app.post('/addTeamMember', uploadTeamMember.single('teamMemberImage'), async (re
       linkedinLink: linkedinLink,
       instaLink: instaLink,
       facebookLink: facebookLink,
-      imagePath: imagePath, // Save the file path to the imagePath field
+      imagePath: imagePath,
     });
 
-    // Save the new team member to the database
     await newTeamMember.save();
-
-    // Redirect back to the admin page after adding the team member
     res.redirect('/admin');
   } catch (error) {
     console.error('Error adding new team member:', error);
@@ -341,8 +321,6 @@ app.post('/editTeamMember/confirmed/:teamMemberId', async (req, res) => {
       res.status(404).send("Team Member not found");
       return;
     }
-
-    // Update the team member data based on the form submission
     teamMemberToUpdate.name = req.body.name;
     teamMemberToUpdate.position = req.body.position;
     teamMemberToUpdate.githubLink = req.body.githubLink;
@@ -350,7 +328,6 @@ app.post('/editTeamMember/confirmed/:teamMemberId', async (req, res) => {
     teamMemberToUpdate.instaLink = req.body.instaLink;
     teamMemberToUpdate.facebookLink = req.body.facebookLink;
 
-    // Check if a new file was uploaded
     if (req.file) {
       teamMemberToUpdate.imagePath = req.file.path;
     }
@@ -365,7 +342,7 @@ app.post('/editTeamMember/confirmed/:teamMemberId', async (req, res) => {
 });
 
 app.get('/deleteTeamMember/:teamMemberId', async (req, res) => {
-  const teamMemberId = req.params.teamMemberId.replace(':', ''); // Remove the colon
+  const teamMemberId = req.params.teamMemberId.replace(':', ''); 
 
   try {
     await TeamMember.findByIdAndDelete(teamMemberId);
