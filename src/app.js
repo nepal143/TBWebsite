@@ -21,7 +21,7 @@ const uri = moongose_uri;
 
 async function connection() {
   try {
-    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(uri);
     console.log("connected successfully");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
