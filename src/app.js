@@ -9,19 +9,25 @@ const Events = require('./models/Events');
 const TeamMember = require('./models/TeamMember');
 const app = express();
 const admin_key = process.env.ADMIN_KEY;
-const moongose_uri = process.env.MONGOOSE_URI || "mongodb://127.0.0.1:27017/yourdatabase";
+const moongose_uri = process.env.MONGOOSE_URI ;
 
 app.set("views", path.join(__dirname, "../templates/views"));
 app.set("view engine", "hbs");
 hbs.registerPartials(path.join(__dirname, "../templates/partials"));
 app.use(express.static(path.join(__dirname, "../public")));
-
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
+});
 
 const uri = moongose_uri;
 
 async function connection() {
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true, 
+    });
     console.log("connected successfully");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
