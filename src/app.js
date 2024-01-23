@@ -73,7 +73,7 @@ const authenticateAdmin = (req, res, next) => {
   ];
 
   if (adminRoutes.includes(req.path)) {
-    if (adminKey && adminKey === process.env.ADMIN_KEY) {in
+    if (adminKey && adminKey === process.env.ADMIN_KEY) {
       next();
     } else {
 

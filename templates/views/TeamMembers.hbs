@@ -16,6 +16,6 @@ function confirmDeleteTeamMember(teamMemberId, adminKey) {
     var shouldDelete = confirm("Are you sure you want to delete this team member?");
     if (shouldDelete) {
         window.location.href = '/deleteTeamMember/:' + teamMemberId + '?adminKey=' + adminKey;
-    }
+    } 
 }
 </script>
