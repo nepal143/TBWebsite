@@ -438,12 +438,17 @@ nav{
 }
 .event-card{
     width: 70vw;
-    height: 30vw;
+    min-height: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column
     ;
+    margin:  50px auto;
+    text-align: center;
+    background-color: rgba(86, 86, 86, 0.297);
+    transition: 0.6s;
+    
 }
 .rect-left{
     margin-top: 0;
@@ -454,6 +459,22 @@ nav{
         width: 5vh;
     }
 }
+.event-container .event-card .event-img{
+    position: absolute;
+    z-index:  -1;
+    width: 70vw;
+    height :30vw;
+}
+
+.event-container .event-card h2{
+    font-size: 7rem;
+}
+.event-container .event-card p{
+    font-size: 1.6rem;
+    width: 90%;
+    margin: auto;
+}
+
 
 /*---------------------------------- events page ends here -------------------------------- */
 
@@ -492,6 +513,4 @@ nav{
   button:hover {
     background-color: #0056b3;
   }
-
-
   /*-------------------------------------------- ends here --------------------------------------------------- */

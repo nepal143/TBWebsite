@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-{{>header}}
-<body>
-    {{>Navbar}}
+  {{> header}}
+  <body>
+    {{> Navbar}}
     <div class="events-page">
-    <div class="event-heading">
-     <div class="rectangle-left rect-left" style="">
-        <div class="rectangle-stroke"> </div> 
-    </div>
-
-       <span> EVENTS</span>
-
-     <div class="rectangle-right rect-right" style="">
-        <div class="rectangle-stroke stroke-right"> </div>
-    </div></div>
-    <div class="event-container">
-    {{#each events}}
-        <div class="event-card">
-            <h2>{{eventName}}</h2>
-            <p> {{AboutEvent}}</p>
+      <div class="event-heading">
+        <div class="rectangle-left rect-left" style="">
+          <div class="rectangle-stroke"> </div>
         </div>
-    {{/each}}   
-    </div> 
+
+        <span> EVENTS</span>
+
+        <div class="rectangle-right rect-right" style="">
+          <div class="rectangle-stroke stroke-right"> </div>
+        </div>
+      </div>
+      <div class="event-container">
+        {{#each events}}
+        <div class="event-card">
+          <img class="event-img" src="/uploads/events/{{getFileName imagePath}}" alt="{{eventName}}" class="event-image">
+          <div class="event-details">
+            <h2>{{eventName}}</h2>
+            <p>{{shortDescription}}</p>
+          </div>
+        </div>
+        {{/each}}
+      </div>
     </div>
-</body>
+  </body>
 </html>

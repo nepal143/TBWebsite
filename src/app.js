@@ -102,8 +102,8 @@ const authenticateAdminForTeamMember = (req, res, next) => {
   }
 };
 // Apply the middleware globally
-app.use(authenticateAdmin);
-app.use(authenticateAdminForTeamMember);
+// app.use(authenticateAdmin);
+// app.use(authenticateAdminForTeamMember);
 
 
 
@@ -200,8 +200,8 @@ app.post('/edit/confirmed/:eventId', async (req, res) => {
     eventToUpdate.longDescription = req.body.longDescription;
 
     await eventToUpdate.save();
-
-    res.redirect("/admin");
+ 
+    res.redirect("/admin");  
   } catch (error) {
     console.error("Error updating event data:", error);
     res.status(500).send("Internal Server Error");
@@ -349,6 +349,14 @@ app.get('/deleteTeamMember/:teamMemberId', async (req, res) => {
     console.error('Error deleting team member:', error);
     res.status(500).send('Internal Server Error');
   }
+});
+
+
+
+
+hbs.registerHelper('getFileName', (filePath) => {
+  const parts = filePath.split('\\');
+  return parts.pop();
 });
 
 app.listen(port, () => {
