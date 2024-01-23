@@ -53,57 +53,57 @@ const uploadTeamMember = multer({ storage: storageTeam });
 
 // Middlewares
 // Middleware to authenticate admin for specific routes
-// const authenticateAdmin = (req, res, next) => {
-//   const adminKey = req.query.adminKey;
+const authenticateAdmin = (req, res, next) => {
+  const adminKey = req.query.adminKey;
 
-//   // Specify the routes that require admin authentication
-//   const adminRoutes = [
-//     '/admin/add',
-//     '/delete/:eventId',
-//     '/edit/confirm/:eventId',
-//     '/edit/confirmed/:eventId',
-//     '/add',
-//     '/addTeamMember', // Add this line to allow access to the /addTeamMember route
-//     '/deleteTeamMember/:teamMemberId', // Make sure you have this route for deleting team members
-//   ];
+  // Specify the routes that require admin authentication
+  const adminRoutes = [ 
+    '/admin/add',
+    '/delete/:eventId',
+    '/edit/confirm/:eventId',
+    '/edit/confirmed/:eventId',
+    '/add',
+    '/addTeamMember', // Add this line to allow access to the /addTeamMember route
+    '/deleteTeamMember/:teamMemberId', // Make sure you have this route for deleting team members
+  ];
 
-//   if (adminRoutes.includes(req.path)) {
-//     // If the route requires admin authentication
-//     if (adminKey && adminKey === process.env.ADMIN_KEY) {
-//       // Allow access for authenticated admin
-//       next();
-//     } else {
-//       // Send Unauthorized response for unauthorized access
-//       res.status(401).send('Unauthorized access');
-//     }
-//   } else {
-//     // For other routes, proceed without admin authentication
-//     next();
-//   }
-// };
-// const authenticateAdminForTeamMember = (req, res, next) => {
-//   const adminKey = req.query.adminKey;
+  if (adminRoutes.includes(req.path)) {
+    // If the route requires admin authentication
+    if (adminKey && adminKey === process.env.ADMIN_KEY) {
+      // Allow access for authenticated admin
+      next();
+    } else {
+      // Send Unauthorized response for unauthorized access
+      res.status(401).send('Unauthorized access');
+    }
+  } else {
+    // For other routes, proceed without admin authentication
+    next();
+  }
+}; 
+const authenticateAdminForTeamMember = (req, res, next) => {
+  const adminKey = req.query.adminKey;
 
-//   // Specify the routes that require admin authentication
-//   const adminRoutesForTeamMember = ['/admin/addTeamMember', '/deleteTeamMember/:teamMemberId', '/editTeamMember/confirm/:teamMemberId', '/editTeamMember/confirmed/:teamMemberId', '/addTeamMember'];
+  // Specify the routes that require admin authentication
+  const adminRoutesForTeamMember = ['/admin/addTeamMember', '/deleteTeamMember/:teamMemberId', '/editTeamMember/confirm/:teamMemberId', '/editTeamMember/confirmed/:teamMemberId', '/addTeamMember'];
 
-//   if (adminRoutesForTeamMember.includes(req.path)) {
-//     // If the route requires admin authentication
-//     if (adminKey && adminKey === process.env.ADMIN_KEY) {
-//       // Allow access for authenticated admin
-//       next();
-//     } else {
-//       // Send Unauthorized response for unauthorized access
-//       res.status(401).send('Unauthorized access');
-//     }
-//   } else {
-//     // For other routes, proceed without admin authentication
-//     next();
-//   }
-// };
-// // Apply the middleware globally
-// app.use(authenticateAdmin);
-// app.use(authenticateAdminForTeamMember);
+  if (adminRoutesForTeamMember.includes(req.path)) {
+    // If the route requires admin authentication
+    if (adminKey && adminKey === process.env.ADMIN_KEY) {
+      // Allow access for authenticated admin
+      next();
+    } else {
+      // Send Unauthorized response for unauthorized access
+      res.status(401).send('Unauthorized access');
+    }
+  } else {
+    // For other routes, proceed without admin authentication
+    next();
+  }
+};
+// Apply the middleware globally
+app.use(authenticateAdmin);
+app.use(authenticateAdminForTeamMember);
 
 
 
@@ -182,10 +182,13 @@ app.get("/edit/confirmed/:eventId", upload.single("eventImage"), async (req, res
   }
 });
 
-app.post('/edit/confirmed/:eventId', upload.single('eventImage'), async (req, res) => {
+app.post('/edit/confirmed/:eventId', async (req, res) => {
   const eventId = req.params.eventId;
   const adminKey = req.query.adminKey;
+
   try {
+    console.log('Received request body:', req.body);
+
     const eventToUpdate = await Events.findById(eventId);
     if (!eventToUpdate) {
       res.status(404).send("Event not found");
@@ -193,11 +196,8 @@ app.post('/edit/confirmed/:eventId', upload.single('eventImage'), async (req, re
     }
 
     eventToUpdate.eventName = req.body.eventName;
-    eventToUpdate.aboutEvent = req.body.aboutEvent;
-
-    if (req.file) {
-      eventToUpdate.imagePath = req.file.path;
-    }
+    eventToUpdate.shortDescription = req.body.shortDescription;
+    eventToUpdate.longDescription = req.body.longDescription;
 
     await eventToUpdate.save();
 
@@ -207,7 +207,6 @@ app.post('/edit/confirmed/:eventId', upload.single('eventImage'), async (req, re
     res.status(500).send("Internal Server Error");
   }
 });
-
 
 app.get('/add', (req, res) => {
   const adminKey = req.query.adminKey;
@@ -219,20 +218,20 @@ app.post('/add', upload.single('eventImage'), async (req, res) => {
   const adminKey = req.query.adminKey;
 
   try {
-    const { eventName, aboutEvent } = req.body;
+    const { eventName, shortDescription, longDescription } = req.body;
+
     let imagePath;
     if (req.file) {
       imagePath = req.file.path;
     }
 
-
     const newEvent = new Events({
       eventName: eventName,
-      aboutEvent: aboutEvent,
-      imagePath: imagePath, 
+      shortDescription: shortDescription,
+      longDescription: longDescription,
+      imagePath: imagePath,
     });
 
-   
     await newEvent.save();
 
     res.redirect('/admin');
@@ -241,8 +240,6 @@ app.post('/add', upload.single('eventImage'), async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
-
 
 
 
