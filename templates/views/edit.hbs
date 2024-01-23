@@ -1,7 +1,5 @@
-<!-- edit.hbs -->
 <h1>Edit Event</h1>
 <form action="/edit/confirmed/{{eventToUpdate._id}}?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
-  <!-- Existing form fields for editing event details -->
   <label for="eventName">Event Name:</label>
   <input type="text" id="eventName" name="eventName" value="{{eventToUpdate.eventName}}" required>
 

@@ -57,57 +57,54 @@ const storageTeam = multer.diskStorage({
 const upload = multer({ storage: storage });
 const uploadTeamMember = multer({ storage: storageTeam });
 
-// Middlewares
-// Middleware to authenticate admin for specific routes
+
 const authenticateAdmin = (req, res, next) => {
   const adminKey = req.query.adminKey;
 
-  // Specify the routes that require admin authentication
+
   const adminRoutes = [ 
     '/admin/add',
     '/delete/:eventId',
     '/edit/confirm/:eventId',
     '/edit/confirmed/:eventId',
     '/add',
-    '/addTeamMember', // Add this line to allow access to the /addTeamMember route
-    '/deleteTeamMember/:teamMemberId', // Make sure you have this route for deleting team members
+    '/addTeamMember',
+    '/deleteTeamMember/:teamMemberId', 
   ];
 
   if (adminRoutes.includes(req.path)) {
-    // If the route requires admin authentication
-    if (adminKey && adminKey === process.env.ADMIN_KEY) {
-      // Allow access for authenticated admin
+    if (adminKey && adminKey === process.env.ADMIN_KEY) {in
       next();
     } else {
-      // Send Unauthorized response for unauthorized access
+
       res.status(401).send('Unauthorized access');
     }
   } else {
-    // For other routes, proceed without admin authentication
+
     next();
   }
 }; 
 const authenticateAdminForTeamMember = (req, res, next) => {
   const adminKey = req.query.adminKey;
 
-  // Specify the routes that require admin authentication
+
   const adminRoutesForTeamMember = ['/admin/addTeamMember', '/deleteTeamMember/:teamMemberId', '/editTeamMember/confirm/:teamMemberId', '/editTeamMember/confirmed/:teamMemberId', '/addTeamMember'];
 
   if (adminRoutesForTeamMember.includes(req.path)) {
-    // If the route requires admin authentication
+
     if (adminKey && adminKey === process.env.ADMIN_KEY) {
-      // Allow access for authenticated admin
+
       next();
     } else {
-      // Send Unauthorized response for unauthorized access
+
       res.status(401).send('Unauthorized access');
     }
   } else {
-    // For other routes, proceed without admin authentication
+
     next();
   }
 };
-// Apply the middleware globally
+
 // app.use(authenticateAdmin);
 // app.use(authenticateAdminForTeamMember);
 
