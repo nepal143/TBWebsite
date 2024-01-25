@@ -1,5 +1,16 @@
-<h1>Edit Confirmation</h1>
-<p>Event Details:</p>
-<p>Event Name: {{eventToUpdate.eventName}}</p>
-<p>About Event: {{eventToUpdate.aboutEvent}}</p>
-<a href="/edit/confirmed/{{eventToUpdate._id}}?adminKey={{adminKey}}">Confirm Edit</a>
+<!DOCTYPE html>
+<html lang="en">
+  {{>header_bootstrap}}
+  <body>
+    <div class="container mt-5">
+      <h1>Edit Confirmation</h1>
+      <div class="mb-3">
+        <p class="mb-0">Event Details:</p>
+        <p class="mb-0">Event Name: {{eventToUpdate.eventName}}</p>
+        <p class="mb-3">About Event: {{eventToUpdate.aboutEvent}}</p>
+      </div>
+
+      <a href="/edit/confirmed/{{eventToUpdate._id}}?adminKey={{adminKey}}" class="btn btn-primary">Confirm Edit</a>
+    </div>
+  </body>
+</html>

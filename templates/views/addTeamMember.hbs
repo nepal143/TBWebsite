@@ -2,37 +2,54 @@
 <html lang="en">
 
 <head>
+    {{>header_bootstrap}}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Team Member</title>
 </head>
 
 <body>
-    <h1>Add New Team Member</h1>
-    <form action="/addTeamMember?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+    <div class="container mt-5">
+        <h1>Add New Team Member</h1>
+        <form action="/addTeamMember?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
 
-        <label for="position">Position:</label>
-        <input type="text" id="position" name="position" required>
+            <div class="mb-3">
+                <label for="position" class="form-label">Position:</label>
+                <input type="text" id="position" name="position" class="form-control" required>
+            </div>
 
-        <label for="githubLink">GitHub Link:</label>
-        <input type="text" id="githubLink" name="githubLink">
+            <div class="mb-3">
+                <label for="githubLink" class="form-label">GitHub Link:</label>
+                <input type="text" id="githubLink" name="githubLink" class="form-control">
+            </div>
 
-        <label for="linkedinLink">LinkedIn Link:</label>
-        <input type="text" id="linkedinLink" name="linkedinLink">
+            <div class="mb-3">
+                <label for="linkedinLink" class="form-label">LinkedIn Link:</label>
+                <input type="text" id="linkedinLink" name="linkedinLink" class="form-control">
+            </div>
 
-        <label for="instaLink">Instagram Link:</label>
-        <input type="text" id="instaLink" name="instaLink">
+            <div class="mb-3">
+                <label for="instaLink" class="form-label">Instagram Link:</label>
+                <input type="text" id="instaLink" name="instaLink" class="form-control">
+            </div>
 
-        <label for="facebookLink">Facebook Link:</label>
-        <input type="text" id="facebookLink" name="facebookLink">
+            <div class="mb-3">
+                <label for="facebookLink" class="form-label">Facebook Link:</label>
+                <input type="text" id="facebookLink" name="facebookLink" class="form-control">
+            </div>
 
-        <label for="teamMemberImage">Team Member Image:</label>
-        <input type="file" id="teamMemberImage" name="teamMemberImage" required>
+            <div class="mb-3">
+                <label for="teamMemberImage" class="form-label">Team Member Image:</label>
+                <input type="file" id="teamMemberImage" name="teamMemberImage" class="form-control" required>
+            </div>
 
-        <button type="submit">Add Team Member</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Add Team Member</button>
+        </form>
+    </div>
 </body>
 
 </html>

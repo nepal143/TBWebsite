@@ -1,17 +1,40 @@
-<!-- addEvent.hbs -->
-<h1>Add New Event</h1>
-<form action="/add?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
-  <label for="eventName">Event Name:</label>
-  <input type="text" id="eventName" name="eventName" required>
-  
-  <label for="shortDescription">Short Description:</label>
-  <textarea id="shortDescription" name="shortDescription" required></textarea>
-  
-  <label for="longDescription">Long Description:</label>
-  <textarea id="longDescription" name="longDescription" required></textarea>
+<!DOCTYPE html>
+<html lang="en">
 
-  <label for="eventImage">Event Image:</label>
-  <input type="file" id="eventImage" name="eventImage" required>
+<head>
+    {{>header_bootstrap}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Event</title>
+</head>
 
-  <button type="submit">Add Event</button>
-</form>
+<body>
+    <div class="container mt-5">
+        <h1>Add New Event</h1>
+        <form action="/add?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="eventName" class="form-label">Event Name:</label>
+                <input type="text" id="eventName" name="eventName" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="shortDescription" class="form-label">Short Description:</label>
+                <textarea id="shortDescription" name="shortDescription" class="form-control" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="longDescription" class="form-label">Long Description:</label>
+                <textarea id="longDescription" name="longDescription" class="form-control" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="eventImage" class="form-label">Event Image:</label>
+                <input type="file" id="eventImage" name="eventImage" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Event</button>
+        </form>
+    </div>
+</body>
+
+</html>
