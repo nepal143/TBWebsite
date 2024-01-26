@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 4000;
 const Events = require('./models/Events'); 
 const TeamMember = require('./models/TeamMember');
+const Blog =require('./models/Blog');
 const app = express();
 const admin_key = process.env.ADMIN_KEY;
 const moongose_uri = process.env.MONGOOSE_URI ;
@@ -378,4 +379,60 @@ hbs.registerHelper('getFileName', (filePath) => {
 app.listen(port, () => {
   console.log(`The server is running on port ${port}`); 
 });
+
+const blogSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+});
+
+const Blog = mongoose.model('Blog', blogSchema);
+
+c
+app.get('/blog', async (req, res) => {
+  try {
+    const blogs = await Blog.find();
+    res.render('blog', { blogs });
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+app.get('/blog/:id', async (req, res) => {
+  const blogId = req.params.id;
+  try {
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      res.status(404).send('Blog post not found');
+      return;
+    }
+    res.render('blogDetails', { blog });
+  } catch (error) {
+    console.error('Error fetching blog post:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+app.get('/addBlog', (req, res) => {
+  res.render('addBlog');
+});
+
+// Add a new blog post
+app.post('/addBlog', async (req, res) => {
+  const { title, content } = req.body;
+  try {
+    const newBlog = new Blog({
+      title,
+      content,
+    });
+    await newBlog.save();
+    res.redirect('/blog');
+  } catch (error) {
+    console.error('Error adding new blog post:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
   
