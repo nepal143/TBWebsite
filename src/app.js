@@ -353,6 +353,19 @@ app.get('/deleteTeamMember/:teamMemberId', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+// Assuming you have a route for the Team Members page in your Express app
+app.get('/TeamMembers', async (req, res) => {
+  try {
+    const teamMembers = await TeamMember.find().sort({ position: 1 }); // Sorting by position
+
+    res.render('TeamMembers.hbs', { teamMembers });
+
+  } catch (error) {
+    console.error('Error fetching team members:', error);
+    res.status(500).send('Internal Server Error');
+  } 
+});
+
 
 
 

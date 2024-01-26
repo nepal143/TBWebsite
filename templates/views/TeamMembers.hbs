@@ -1,21 +1,25 @@
-<!-- teamMembers.hbs -->
-<h2> <b>TEAM MEMBERS</b></h2>
-<ul>
-    {{#each teamMembers}}
-    <li>
-        {{name}} - {{position}}
-        <a href="editTeamMember/confirm/{{_id}}?adminKey={{admin_key}}">Edit</a>
-        <a href="#" onclick="confirmDeleteTeamMember('{{_id}}', '{{admin_key}}')">Delete</a>
-    </li>
-    {{/each}}
-</ul> 
-<a href="/addTeamMember">Add New Team Member</a>
+<!-- teamMembersPage.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+    {{>header}}
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">Team Members</h1>
 
-<script>
-function confirmDeleteTeamMember(teamMemberId, adminKey) {
-    var shouldDelete = confirm("Are you sure you want to delete this team member?");
-    if (shouldDelete) {
-        window.location.href = '/deleteTeamMember/:' + teamMemberId + '?adminKey=' + adminKey;
-    } 
-}
-</script>
+      <!-- Team Members Section -->
+      <div class="row">
+        {{#each teamMembers}}
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="/uploads/Team/{{getFileName this.imagePath}}" class="card-img-top rounded-circle" alt="{{this.name}}">
+              <div class="card-body">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text">{{this.position}}</p>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </body>
+</html>
