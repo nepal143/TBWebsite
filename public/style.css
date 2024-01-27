@@ -214,7 +214,62 @@ nav{
     }
 }
 
+/* footer section starts her */
+.footer{
+    display: flex;
+    flex-direction: column;
+    height: 48vh ;
+    width: 100%;
+    background-color: #D1F7FF;
+    color:  #00567B;
+    /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ; */
+    font-size: 1.8rem;
+}
 
+.content{
+    display: flex;
+    justify-content: space-evenly;
+    height:38vh;
+}
+
+
+
+.tblogo, .contact{
+    margin: 1.8rem;
+    text-align: center;
+}
+
+.tblogo img{
+    height: 80%;
+}
+
+.contact p{
+    margin: 1rem;
+}
+
+.contact p i{
+    color: rgb(95, 95, 95);
+}
+
+.end{
+    text-align: center;
+}
+.end i{
+    color: red;
+}
+
+@media (max-width: 615px) {
+    .footer{
+        height: 90vh;
+    }
+    .content{
+        flex-direction: column;
+        height: 80vh;
+    }
+    
+  }
+
+/* footer section ends her */
 
 /* techboard ring animation starts here */
 .Ring , .Ringm , .Ringm1{

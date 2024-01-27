@@ -116,6 +116,11 @@ app.get("/", (req, res) => {
   res.render("index.hbs");
 });
 
+app.get("/teams", (req, res) => {
+  res.render("team.hbs");
+});
+
+
 app.get("/events", async (req, res) => {
   try {
     const eventData = await Events.find();

@@ -9,22 +9,14 @@
           <div class="rectangle-stroke"> </div>
         </div>
 
-        <span> EVENTS</span>
+        <span>TEAMS</span>
 
         <div class="rectangle-right rect-right" style="">
           <div class="rectangle-stroke stroke-right"> </div>
         </div>
       </div>
-      <div class="event-container">
-        {{#each events}}
-        <div class="event-card">
-          <img class="event-img" src="/uploads/events/{{getFileName imagePath}}" alt="{{eventName}}" class="event-image">
-          <div class="event-details">
-            <h2>{{eventName}}</h2>
-            <p>{{shortDescription}}</p>
-          </div>
-        </div>
-        {{/each}}
+      <div class="team-container">
+          
       </div>
     </div>
     {{> Footer}}
