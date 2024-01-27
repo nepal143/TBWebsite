@@ -1,17 +1,32 @@
-<h1>Edit Event</h1>
-<form action="/edit/confirmed/{{eventToUpdate._id}}?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
-  <label for="eventName">Event Name:</label>
-  <input type="text" id="eventName" name="eventName" value="{{eventToUpdate.eventName}}" required>
+<!DOCTYPE html>
+<html lang="en">
+  {{>header_bootstrap}}
+  <body>
+    <div class="container mt-5">
+      <h1>Edit Event</h1>
+      <form action="/edit/confirmed/{{eventToUpdate._id}}?adminKey={{adminKey}}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="eventName" class="form-label">Event Name:</label>
+          <input type="text" class="form-control" id="eventName" name="eventName" value="{{eventToUpdate.eventName}}" required>
+        </div>
 
-  <label for="shortDescription">Short Description:</label>
-  <textarea id="shortDescription" name="shortDescription" required>{{eventToUpdate.shortDescription}}</textarea>
+        <div class="mb-3">
+          <label for="shortDescription" class="form-label">Short Description:</label>
+          <textarea class="form-control" id="shortDescription" name="shortDescription" required>{{eventToUpdate.shortDescription}}</textarea>
+        </div>
 
-  <label for="longDescription">Long Description:</label>
-  <textarea id="longDescription" name="longDescription" required>{{eventToUpdate.longDescription}}</textarea>
+        <div class="mb-3">
+          <label for="longDescription" class="form-label">Long Description:</label>
+          <textarea class="form-control" id="longDescription" name="longDescription" required>{{eventToUpdate.longDescription}}</textarea>
+        </div>
 
-  <label for="eventImage">Event Image:</label>
-  <input type="file" id="eventImage" name="eventImage">
+        <div class="mb-3">
+          <label for="eventImage" class="form-label">Event Image:</label>
+          <input type="file" class="form-control" id="eventImage" name="eventImage">
+        </div>
 
-  <button type="submit">Confirm Edit</button>
-</form>
-  
+        <button type="submit" class="btn btn-primary">Confirm Edit</button>
+      </form>
+    </div>
+  </body>
+</html>

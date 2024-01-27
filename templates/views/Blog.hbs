@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>header_bootstrap}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Blog</h1>
+
+        <!-- Button to Add New Blog Post -->
+        <a href="/addBlog" class="btn btn-success mb-3">Add New Post</a>
+
+        {{#each blogPosts}}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{title}}</h5>
+                    <p class="card-text">{{content}}</p>
+
+                    
+                    <a href="/editBlog/{{_id}}" class="btn btn-primary">Update</a>
+
+                    
+                    <form action="/deleteBlog/{{_id}}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</body>
+
+</html>
