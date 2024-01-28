@@ -480,9 +480,7 @@ nav{
     margin: auto 15vw;
     letter-spacing: 10px;
 }
-.rect-right{
-    /* margin-left: 20vw; */
-}
+
 .event-container{
     padding-top:  100px;
     color: white;
@@ -580,3 +578,90 @@ nav{
 
   }
   /*-------------------------------------------- ends here --------------------------------------------------- */
+
+
+  
+/* -----------------------------------------teams styling---------------------*/
+
+.teams-page{
+    padding-top: 100px;
+}
+.team-heading{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.team-heading span{
+    font-size: 13vw;
+    margin: auto 15vw;
+    letter-spacing: 10px;
+}
+
+.teams-container{
+    padding-top:  100px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction:  column;
+}
+
+.secs, .jsecs{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.teams-container h1{
+    font-size: 6em;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.team-card{
+    height: 400px;
+    width: 350px;
+    margin: 2rem;
+    align-content: center;
+}
+
+.img{
+    height: 60%;
+    width: 70%;
+    border: 2px solid #F5F5F5;
+    margin: auto;
+
+}
+
+.img img{
+    height: 92%;
+    width: 92%;
+    margin: 4%;
+}
+
+.info{
+    position: relative;
+    bottom: 150px;
+    width: 350px;
+    height: 300px;
+    background-color: #D1F7FF;
+    z-index: -1;
+    color: black;
+}
+
+.info h2,.info i{
+    position: relative;
+    top: 165px;
+    text-align: center;
+    font-size: 2rem;
+    
+}
+
+.info i{
+    font-size: 2.5rem;
+    width: 85px;
+    margin-top: 1rem;
+}
+
+
+  /*-------------------------------------------- team styling ends here --------------------------------------------------- */

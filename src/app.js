@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 4000;
 const Events = require('./models/Events'); 
 const TeamMember = require('./models/TeamMember');
-const Blog =require('./models/Blog');
+const Blog =require('./models/blog');
 const app = express();
 const admin_key = process.env.ADMIN_KEY;
 const moongose_uri = process.env.MONGOOSE_URI ;
@@ -390,9 +390,7 @@ const blogSchema = new mongoose.Schema({
   content: String,
 });
 
-const Blog = mongoose.model('Blog', blogSchema);
 
-c
 app.get('/blog', async (req, res) => {
   try {
     const blogs = await Blog.find();
