@@ -1,0 +1,23 @@
+<!-- editBlog.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+  {{> header_bootstrap}}
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">Edit Blog Post</h1>
+
+      <form action="/editBlog/{{blogToUpdate._id}}?adminKey={{adminKey}}" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{blogToUpdate.title}}" required>
+
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" required>{{blogToUpdate.content}}</textarea>
+
+        <label for="blogImage">Blog Image:</label>
+        <input type="file" id="blogImage" name="blogImage" accept="image/*">
+
+        <button type="submit">Confirm Edit</button>
+      </form>
+    </div>
+  </body>
+</html>

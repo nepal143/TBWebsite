@@ -54,7 +54,16 @@ const storageTeam = multer.diskStorage({
     cb(null, Date.now() + '-' + file.originalname);
   }
 });
+const storageBlog = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/blogs');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
 
+const uploadBlog = multer({ storage: storageBlog });
 const upload = multer({ storage: storage });
 const uploadTeamMember = multer({ storage: storageTeam });
 
@@ -381,61 +390,166 @@ hbs.registerHelper('getFileName', (filePath) => {
   return parts.pop();
 });
 
-app.listen(port, () => {
-  console.log(`The server is running on port ${port}`); 
-});
-
-const blogSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-});
 
 
-app.get('/blog', async (req, res) => {
+
+app.get('/adminBlog', async (req, res) => {
   try {
     const blogs = await Blog.find();
-    res.render('blog', { blogs });
+    const adminKey = req.query.adminKey;
+
+    res.render('adminBlog', { blogs, adminKey });
+
   } catch (error) {
-    console.error('Error fetching blog posts:', error);
+    console.error('Error fetching blog posts for admin page:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
+app.get('/editBlog/confirm/:blogId', async (req, res) => {
+  const blogId = req.params.blogId;
+  const adminKey = req.query.adminKey;
 
-app.get('/blog/:id', async (req, res) => {
-  const blogId = req.params.id;
   try {
-    const blog = await Blog.findById(blogId);
-    if (!blog) {
-      res.status(404).send('Blog post not found');
+    const blogToUpdate = await Blog.findById(blogId);
+    if (!blogToUpdate) {
+      res.status(404).send("Blog post not found");
       return;
     }
-    res.render('blogDetails', { blog });
+
+    res.render("editBlogConfirmation", { blogToUpdate, adminKey });
   } catch (error) {
-    console.error('Error fetching blog post:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error fetching blog post data for edit confirmation:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
+app.get('/editBlog/confirmed/:blogId', async (req, res) => {
+  const blogId = req.params.blogId;
+  const adminKey = req.query.adminKey;
 
-app.get('/addBlog', (req, res) => {
-  res.render('addBlog');
+  try {
+    const blogToUpdate = await Blog.findById(blogId);
+    if (!blogToUpdate) {
+      res.status(404).send("Blog post not found");
+      return;
+    }
+
+    res.render("editBlog", { blogToUpdate, adminKey });
+  } catch (error) {
+    console.error("Error fetching blog post data for edit confirmation:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-// Add a new blog post
-app.post('/addBlog', async (req, res) => {
-  const { title, content } = req.body;
+app.post('/editBlog/confirmed/:blogId', async (req, res) => {
+  const blogId = req.params.blogId;
+  const adminKey = req.query.adminKey;
+
   try {
+    const blogToUpdate = await Blog.findById(blogId);
+    if (!blogToUpdate) {
+      res.status(404).send("Blog post not found");
+      return;
+    }
+
+    blogToUpdate.title = req.body.title;
+    blogToUpdate.content = req.body.content;
+
+    await blogToUpdate.save();
+
+    res.redirect("/adminBlog");
+  } catch (error) {
+    console.error("Error updating blog post data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get('/deleteBlog/:blogId', async (req, res) => {
+  const blogId = req.params.blogId;
+
+  try {
+    await Blog.findByIdAndDelete(blogId);
+    console.log("Blog post deleted successfully");
+    res.redirect('/adminBlog');
+  } catch (error) {
+    console.error('Error deleting blog post:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+app.get('/addBlog' , (req,res) =>{
+    res.render('addBlog')
+})
+
+app.post('/addBlog', uploadBlog.single('blogImage'), async (req, res) => {
+  const adminKey = req.query.adminKey;
+
+  try {
+    const { title, content } = req.body;
+
+    let imagePath;
+    if (req.file) {
+      imagePath = req.file.path;
+    }
+
     const newBlog = new Blog({
       title,
       content,
+      imagePath,
     });
+
     await newBlog.save();
-    res.redirect('/blog');
+
+    res.redirect('/adminBlog');
   } catch (error) {
     console.error('Error adding new blog post:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
+app.get('/editBlog/:blogId', uploadBlog.single('blogImage'), async (req, res) => {
+  const blogId = req.params.blogId;
+  const adminKey = req.query.adminKey;
+  try {
+    const blogToUpdate = await Blog.findById(blogId);
+    if (!blogToUpdate) {
+      res.status(404).send('Blog post not found');
+      return;
+    }
+    res.render('editBlog', { blogToUpdate, adminKey });
+  } catch (error) {
+    console.error('Error fetching blog post data for edit:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.post('/editBlog/:blogId', async (req, res) => {
+  const blogId = req.params.blogId;
+  const adminKey = req.query.adminKey;
+  try {
+    const blogToUpdate = await Blog.findById(blogId);
+    if (!blogToUpdate) {
+      res.status(404).send('Blog post not found');
+      return;
+    }
+
+    blogToUpdate.title = req.body.title;
+    blogToUpdate.content = req.body.content;
+
+    if (req.file) {
+      blogToUpdate.imagePath = req.file.path;
+    }
+
+    await blogToUpdate.save();
+
+    res.redirect('/adminBlog');
+  } catch (error) {
+    console.error('Error updating blog post data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.listen(port, () => {
+  console.log(`The server is running on port ${port}`); 
+});
   

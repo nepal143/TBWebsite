@@ -14,6 +14,11 @@ const blogSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  imagePath: {
+    type: String,
+    required: true,
+  },
+     
 });
 
 const blog = mongoose.model('Blog', blogSchema);
