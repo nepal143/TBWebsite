@@ -1,0 +1,34 @@
+<!-- adminBlog.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+  {{> header_bootstrap}}
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">Admin Blog Page</h1>
+
+      <!-- Blog Cards Section -->
+      <div class="row">
+        {{#each blogs}}
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="/uploads/blogs/{{getFileName this.imagePath}}" class="card-img-top" alt="{{this.title}}">
+              <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.content}}</p>
+                <a href="/editBlog/{{this._id}}?adminKey={{adminKey}}" class="btn btn-primary">Edit</a>
+                <a href="/deleteBlog/{{this._id}}?adminKey={{adminKey}}" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+      <!-- Add New Blog Button -->
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <a href="/addBlog?adminKey={{adminKey}}" class="btn btn-success">Add New Blog</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
