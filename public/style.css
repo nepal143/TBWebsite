@@ -665,3 +665,37 @@ nav{
 
 
   /*-------------------------------------------- team styling ends here --------------------------------------------------- */
+
+  /* event info page styling */
+
+.event-data{
+    color: white;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 2rem;
+}
+
+.event-data h1{
+    font-size: 4rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.event-data a{
+    color: #F5F5F5;
+    text-decoration: none;
+    background-color: #05D9E8;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.event-data p{
+    margin-bottom: 20px;
+}
+
+.register{
+    padding: 3px;
+    border: 2px solid #F5F5F5;
+}
+
+
+  /* end event info page styling */
