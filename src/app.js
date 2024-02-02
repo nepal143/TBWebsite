@@ -20,8 +20,8 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Internal Server Error');
 });
-
-const uri = moongose_uri;
+hbs.registerHelper('mod', (num, mod) => num % mod === 0);
+const uri = moongose_uri;    
 
 async function connection() {
   try {
@@ -122,8 +122,14 @@ const authenticateAdminForTeamMember = (req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.get("/", (req, res) => {
-  res.render("index.hbs");
+app.get("/", async (req, res) => {
+  try {
+      const events = await Events.find();
+      res.render("index.hbs", { events });
+  } catch (error) {
+      console.error('Error fetching events:', error);
+      res.status(500).send('Internal Server Error');
+  }
 });
 
 app.get("/teams", (req, res) => {
@@ -520,11 +526,20 @@ app.get('/editBlog/:blogId', uploadBlog.single('blogImage'), async (req, res) =>
       res.status(404).send('Blog post not found');
       return;
     }
-    res.render('editBlog', { blogToUpdate, adminKey });
+    res.render('editBlog', { blogToUpdate, adminKey });  
   } catch (error) {
     console.error('Error fetching blog post data for edit:', error);
     res.status(500).send('Internal Server Error');
   }
+});
+hbs.registerHelper('isLeftCard', (options) => {
+  if (this._isLeftCard === undefined) {
+    this._isLeftCard = true;
+  } else {
+    this._isLeftCard = !this._isLeftCard;
+  }
+
+  return this._isLeftCard ? options.fn(this) : options.inverse(this);
 });
 
 app.post('/editBlog/:blogId', async (req, res) => {
@@ -551,6 +566,9 @@ app.post('/editBlog/:blogId', async (req, res) => {
     console.error('Error updating blog post data:', error);
     res.status(500).send('Internal Server Error');
   }
+});
+hbs.registerHelper('formatDate', (date) => {
+  return date;
 });
 
 app.listen(port, () => {

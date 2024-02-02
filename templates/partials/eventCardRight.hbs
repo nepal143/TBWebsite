@@ -1,0 +1,14 @@
+<!-- eventCardRight.hbs -->
+<div class="card-copy-right">
+    <div class="timeline-card-right">
+        <div class="circle"></div>
+        <h1>{{this.eventType}}</h1>
+        <hr>
+        <p>{{this.description}}</p>
+        <a href="{{this.link}}">Read More <i class="fa-solid fa-arrow-right-long"></i></a>
+        <div class="date-right-card">
+            <i class="fa-regular fa-calendar"></i>
+            {{formatDate this.date}}
+        </div>
+    </div>
+</div>
