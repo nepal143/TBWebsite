@@ -62,53 +62,98 @@ const observer1 = new IntersectionObserver((entries) => {
 
 observer1.observe(footer);
 
-
-
 // slider
-jQuery(document).ready(function ($) {
+$(".slider").each(function () {
+  var $this = $(this);
+  var $group = $this.find(".slide_group");
+  var $slides = $this.find(".slide");
+  var bulletArray = [];
+  var currentIndex = 0;
+  var timeout;
 
-  $('#checkbox').change(function(){
-    setInterval(function () {
-        moveRight();
-    }, 3000);
+  function move(newIndex) {
+    var animateLeft, slideLeft;
+
+    advance();
+
+    if ($group.is(":animated") || currentIndex === newIndex) {
+      return;
+    }
+
+    bulletArray[currentIndex].removeClass("active");
+    bulletArray[newIndex].addClass("active");
+
+    if (newIndex > currentIndex) {
+      slideLeft = "100%";
+      animateLeft = "-100%";
+    } else {
+      slideLeft = "-100%";
+      animateLeft = "100%";
+    }
+
+    $slides.eq(newIndex).css({
+      display: "block",
+      left: slideLeft,
+    });
+    $group.animate(
+      {
+        left: animateLeft,
+      },
+      function () {
+        $slides.eq(currentIndex).css({
+          display: "none",
+        });
+        $slides.eq(newIndex).css({
+          left: 0,
+        });
+        $group.css({
+          left: 0,
+        });
+        currentIndex = newIndex;
+      }
+    );
+  }
+
+  function advance() {
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      if (currentIndex < $slides.length - 1) {
+        move(currentIndex + 1);
+      } else {
+        move(0);
+      }
+    }, 4000);
+  }
+
+  $(".next_btn").on("click", function () {
+    if (currentIndex < $slides.length - 1) {
+      move(currentIndex + 1);
+    } else {
+      move(0);
+    }
   });
-  
-	var slideCount = $('#slider ul li').length;
-	var slideWidth = $('#slider ul li').width();
-	var slideHeight = $('#slider ul li').height();
-	var sliderUlWidth = slideCount * slideWidth;
-	
-	$('#slider').css({ width: slideWidth, height: slideHeight });
-	
-	$('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
-	
-    $('#slider ul li:last-child').prependTo('#slider ul');
 
-    function moveLeft() {
-        $('#slider ul').animate({
-            left: + slideWidth
-        }, 200, function () {
-            $('#slider ul li:last-child').prependTo('#slider ul');
-            $('#slider ul').css('left', '');
-        });
-    };
+  $(".previous_btn").on("click", function () {
+    if (currentIndex !== 0) {
+      move(currentIndex - 1);
+    } else {
+      move(3);
+    }
+  });
 
-    function moveRight() {
-        $('#slider ul').animate({
-            left: - slideWidth
-        }, 200, function () {
-            $('#slider ul li:first-child').appendTo('#slider ul');
-            $('#slider ul').css('left', '');
-        });
-    };
+  $.each($slides, function (index) {
+    var $button = $('<a class="slide_btn">&bull;</a>');
 
-    $('a.control_prev').click(function () {
-        moveLeft();
-    });
+    if (index === currentIndex) {
+      $button.addClass("active");
+    }
+    $button
+      .on("click", function () {
+        move(index);
+      })
+      .appendTo(".slide_buttons");
+    bulletArray.push($button);
+  });
 
-    $('a.control_next').click(function () {
-        moveRight();
-    });
-
-});    
-
+  advance();
+});
